@@ -88,11 +88,24 @@
   </dependencies>
   
   <build>
+    <sourceDirectory>${project.basedir}/main/java</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/test/java</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>${project.basedir}/test/resources</directory>
+      </testResource>
+    </testResources>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
+          <mainClass>com.library.BibliothequeApplication</mainClass>
           <excludes>
             <exclude>
               <groupId>org.projectlombok</groupId>
@@ -112,6 +125,29 @@
         <version>3.2.0</version>
         <configuration>
           <mavenVersion>3.9.6</mavenVersion>
+        </configuration>
+      </plugin>
+      <!-- JAXB XJC plugin to generate Java classes from XSD -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxb2-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <sources>
+            <source>${project.basedir}/main/resources/bibliotheque.xsd</source>
+          </sources>
+          <outputDirectory>${project.basedir}/target/generated-sources/jaxb</outputDirectory>
+          <clearOutputDir>false</clearOutputDir>
+          <packageName>bibliotheque.ws</packageName>
+          <noGeneratedHeaderComments>true</noGeneratedHeaderComments>
         </configuration>
       </plugin>
     </plugins>

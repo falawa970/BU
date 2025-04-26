@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:tns="http://bibliotheque.ws" 
+           targetNamespace="http://bibliotheque.ws" 
+           elementFormDefault="qualified">
+
+    <!-- Livre type -->
+    <xs:complexType name="livre">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0" />
+            <xs:element name="titre" type="xs:string" />
+            <xs:element name="auteur" type="xs:string" />
+            <xs:element name="isbn" type="xs:string" minOccurs="0" />
+            <xs:element name="description" type="xs:string" minOccurs="0" />
+            <xs:element name="anneePublication" type="xs:int" minOccurs="0" />
+            <xs:element name="disponible" type="xs:boolean" minOccurs="0" />
+            <xs:element name="dateCreation" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="dateModification" type="xs:dateTime" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- User type -->
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0" />
+            <xs:element name="nom" type="xs:string" />
+            <xs:element name="prenom" type="xs:string" />
+            <xs:element name="email" type="xs:string" />
+            <xs:element name="telephone" type="xs:string" minOccurs="0" />
+            <xs:element name="type" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Reservation type -->
+    <xs:complexType name="reservation">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0" />
+            <xs:element name="userId" type="xs:long" minOccurs="0" />
+            <xs:element name="livreId" type="xs:long" minOccurs="0" />
+            <xs:element name="dateReservation" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="dateDebut" type="xs:date" minOccurs="0" />
+            <xs:element name="dateFin" type="xs:date" minOccurs="0" />
+            <xs:element name="status" type="xs:string" minOccurs="0" />
+            <xs:element name="dateRetour" type="xs:date" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- ajouterLivre request/response -->
+    <xs:element name="ajouterLivreRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="livre" type="tns:livre" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="ajouterLivreResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="livre" type="tns:livre" />
+                <xs:element name="success" type="xs:boolean" />
+                <xs:element name="message" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- modifierLivre request/response -->
+    <xs:element name="modifierLivreRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="livreId" type="xs:long" />
+                <xs:element name="livre" type="tns:livre" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="modifierLivreResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="livre" type="tns:livre" />
+                <xs:element name="success" type="xs:boolean" />
+                <xs:element name="message" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- supprimerLivre request/response -->
+    <xs:element name="supprimerLivreRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="livreId" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="supprimerLivreResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:boolean" />
+                <xs:element name="message" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- preterLivre request/response -->
+    <xs:element name="preterLivreRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:long" />
+                <xs:element name="livreId" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="preterLivreResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservation" type="tns:reservation" />
+                <xs:element name="success" type="xs:boolean" />
+                <xs:element name="message" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- retournerLivre request/response -->
+    <xs:element name="retournerLivreRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:long" />
+                <xs:element name="livreId" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="retournerLivreResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservation" type="tns:reservation" />
+                <xs:element name="success" type="xs:boolean" />
+                <xs:element name="message" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
