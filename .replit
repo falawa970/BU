@@ -2,7 +2,7 @@ modules = ["python-3.11", "java"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["openssl", "postgresql"]
+packages = ["openssl", "postgresql", "unzip"]
 
 [deployment]
 deploymentTarget = "autoscale"
