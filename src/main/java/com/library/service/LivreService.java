@@ -135,6 +135,6 @@ public class LivreService {
     }
 
     public Livre save(Livre livre) {
-        return null;
+        return livreRepository.save(livre);
     }
 }
