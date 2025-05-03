@@ -1,0 +1,214 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Livre",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class Livre(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    titre = db.Column(db.String(100), nullable=False)\n    auteur = db.Column(db.String(100), nullable=False)\n    isbn = db.Column(db.String(20), unique=True)\n    description = db.Column(db.Text)\n    annee_publication = db.Column(db.Integer)\n    disponible = db.Column(db.Boolean, default=True)\n    date_creation = db.Column(db.DateTime, server_default=db.func.now())\n    date_modification = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class User(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    nom = db.Column(db.String(50), nullable=False)\n    prenom = db.Column(db.String(50), nullable=False)\n    email = db.Column(db.String(100), unique=True, nullable=False)\n    telephone = db.Column(db.String(20))\n    type = db.Column(db.String(20), nullable=False)  # ADMIN, CLIENT, etc.\n    def to_dict(self):\n        return {\n            'id': self.id,",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "Reservation",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class Reservation(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)\n    livre_id = db.Column(db.Integer, db.ForeignKey('livre.id'), nullable=False)\n    date_reservation = db.Column(db.DateTime, server_default=db.func.now())\n    date_debut = db.Column(db.Date, nullable=False)\n    date_fin = db.Column(db.Date, nullable=False)\n    status = db.Column(db.String(20), nullable=False)  # RESERVEE, EMPRUNTEE, RETOURNEE, ANNULEE\n    date_retour = db.Column(db.Date)\n    user = db.relationship('User', backref=db.backref('reservations', lazy=True))",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_livres",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_all_livres():\n    livres = Livre.query.all()\n    return jsonify([livre.to_dict() for livre in livres])\n@app.route('/api/livres/<int:id>', methods=['GET'])\ndef get_livre(id):\n    livre = Livre.query.get_or_404(id)\n    return jsonify(livre.to_dict())\n@app.route('/api/livres/disponibles', methods=['GET'])\ndef get_livres_disponibles():\n    livres = Livre.query.filter_by(disponible=True).all()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_livre",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_livre(id):\n    livre = Livre.query.get_or_404(id)\n    return jsonify(livre.to_dict())\n@app.route('/api/livres/disponibles', methods=['GET'])\ndef get_livres_disponibles():\n    livres = Livre.query.filter_by(disponible=True).all()\n    return jsonify([livre.to_dict() for livre in livres])\n# Réservations\n@app.route('/api/reservations/<int:id>', methods=['GET'])\ndef get_reservation(id):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_livres_disponibles",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_livres_disponibles():\n    livres = Livre.query.filter_by(disponible=True).all()\n    return jsonify([livre.to_dict() for livre in livres])\n# Réservations\n@app.route('/api/reservations/<int:id>', methods=['GET'])\ndef get_reservation(id):\n    reservation = Reservation.query.get_or_404(id)\n    return jsonify(reservation.to_dict())\n@app.route('/api/reservations', methods=['POST'])\ndef create_reservation():",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_reservation",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_reservation(id):\n    reservation = Reservation.query.get_or_404(id)\n    return jsonify(reservation.to_dict())\n@app.route('/api/reservations', methods=['POST'])\ndef create_reservation():\n    data = request.get_json()\n    # Validation de base\n    required_fields = ['user_id', 'livre_id', 'date_debut', 'date_fin']\n    for field in required_fields:\n        if field not in data:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "create_reservation",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def create_reservation():\n    data = request.get_json()\n    # Validation de base\n    required_fields = ['user_id', 'livre_id', 'date_debut', 'date_fin']\n    for field in required_fields:\n        if field not in data:\n            return jsonify({'error': f'Le champ {field} est requis'}), 400\n    user = User.query.get(data['user_id'])\n    if not user:\n        return jsonify({'error': 'Utilisateur non trouvé'}), 404",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "admin_add_livre",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def admin_add_livre():\n    data = request.get_json()\n    # Validation de base\n    required_fields = ['titre', 'auteur']\n    for field in required_fields:\n        if field not in data:\n            return jsonify({'error': f'Le champ {field} est requis'}), 400\n    livre = Livre(\n        titre=data['titre'],\n        auteur=data['auteur'],",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "admin_update_livre",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def admin_update_livre(id):\n    livre = Livre.query.get_or_404(id)\n    data = request.get_json()\n    if 'titre' in data:\n        livre.titre = data['titre']\n    if 'auteur' in data:\n        livre.auteur = data['auteur']\n    if 'isbn' in data:\n        livre.isbn = data['isbn']\n    if 'description' in data:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "admin_delete_livre",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def admin_delete_livre(id):\n    livre = Livre.query.get_or_404(id)\n    # Vérifier s'il y a des réservations actives\n    active_reservations = Reservation.query.filter_by(livre_id=id).filter(Reservation.status.in_(['RESERVEE', 'EMPRUNTEE'])).count()\n    if active_reservations > 0:\n        return jsonify({\n            'success': False,\n            'message': 'Impossible de supprimer un livre avec des réservations actives'\n        }), 400\n    db.session.delete(livre)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "admin_preter_livre",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def admin_preter_livre():\n    data = request.get_json()\n    if 'user_id' not in data or 'livre_id' not in data:\n        return jsonify({'error': 'Les champs user_id et livre_id sont requis'}), 400\n    user = User.query.get(data['user_id'])\n    if not user:\n        return jsonify({'error': 'Utilisateur non trouvé'}), 404\n    livre = Livre.query.get(data['livre_id'])\n    if not livre:\n        return jsonify({'error': 'Livre non trouvé'}), 404",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "admin_retourner_livre",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def admin_retourner_livre():\n    data = request.get_json()\n    if 'user_id' not in data or 'livre_id' not in data:\n        return jsonify({'error': 'Les champs user_id et livre_id sont requis'}), 400\n    user = User.query.get(data['user_id'])\n    if not user:\n        return jsonify({'error': 'Utilisateur non trouvé'}), 404\n    livre = Livre.query.get(data['livre_id'])\n    if not livre:\n        return jsonify({'error': 'Livre non trouvé'}), 404",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def index():\n    return '''\n    <h1>API de Gestion de Bibliothèque</h1>\n    <p>Système hybride de gestion de bibliothèque avec API REST pour l'accès public et API administrative pour les fonctions d'administration.</p>\n    <h2>Endpoints API REST (publics)</h2>\n    <ul>\n        <li>GET /api/livres - Liste tous les livres</li>\n        <li>GET /api/livres/{id} - Affiche les détails d'un livre</li>\n        <li>GET /api/livres/disponibles - Liste les livres disponibles</li>\n        <li>GET /api/reservations/{id} - Affiche les détails d'une réservation</li>",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = Flask(__name__)\napp.secret_key = os.environ.get(\"SESSION_SECRET\", \"default_secret_key\")\n# Configure database\napp.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(\"DATABASE_URL\")\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False\ndb = SQLAlchemy(app)\n# Model definitions\nclass Livre(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    titre = db.Column(db.String(100), nullable=False)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app.secret_key",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app.secret_key = os.environ.get(\"SESSION_SECRET\", \"default_secret_key\")\n# Configure database\napp.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(\"DATABASE_URL\")\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False\ndb = SQLAlchemy(app)\n# Model definitions\nclass Livre(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    titre = db.Column(db.String(100), nullable=False)\n    auteur = db.Column(db.String(100), nullable=False)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SQLALCHEMY_DATABASE_URI']",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(\"DATABASE_URL\")\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False\ndb = SQLAlchemy(app)\n# Model definitions\nclass Livre(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    titre = db.Column(db.String(100), nullable=False)\n    auteur = db.Column(db.String(100), nullable=False)\n    isbn = db.Column(db.String(20), unique=True)\n    description = db.Column(db.Text)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SQLALCHEMY_TRACK_MODIFICATIONS']",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False\ndb = SQLAlchemy(app)\n# Model definitions\nclass Livre(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    titre = db.Column(db.String(100), nullable=False)\n    auteur = db.Column(db.String(100), nullable=False)\n    isbn = db.Column(db.String(20), unique=True)\n    description = db.Column(db.Text)\n    annee_publication = db.Column(db.Integer)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "db = SQLAlchemy(app)\n# Model definitions\nclass Livre(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    titre = db.Column(db.String(100), nullable=False)\n    auteur = db.Column(db.String(100), nullable=False)\n    isbn = db.Column(db.String(20), unique=True)\n    description = db.Column(db.Text)\n    annee_publication = db.Column(db.Integer)\n    disponible = db.Column(db.Boolean, default=True)",
+        "detail": "main",
+        "documentation": {}
+    }
+]

@@ -12,16 +12,19 @@ import com.library.model.Reservation;
 import com.library.service.LivreService;
 import com.library.service.ReservationService;
 
-import bibliotheque.ws.AjouterLivreRequest;
-import bibliotheque.ws.AjouterLivreResponse;
-import bibliotheque.ws.ModifierLivreRequest;
-import bibliotheque.ws.ModifierLivreResponse;
-import bibliotheque.ws.PreterLivreRequest;
-import bibliotheque.ws.PreterLivreResponse;
-import bibliotheque.ws.RetournerLivreRequest;
-import bibliotheque.ws.RetournerLivreResponse;
-import bibliotheque.ws.SupprimerLivreRequest;
-import bibliotheque.ws.SupprimerLivreResponse;
+import com.library.soap.generated.AjouterLivreRequest;
+import com.library.soap.generated.AjouterLivreResponse;
+import com.library.soap.generated.ModifierLivreRequest;
+import com.library.soap.generated.ModifierLivreResponse;
+import com.library.soap.generated.PreterLivreRequest;
+import com.library.soap.generated.PreterLivreResponse;
+import com.library.soap.generated.RetournerLivreRequest;
+import com.library.soap.generated.RetournerLivreResponse;
+import com.library.soap.generated.SupprimerLivreRequest;
+import com.library.soap.generated.SupprimerLivreResponse;
+//import com.library.soap.generated.Livre;
+//import com.library.soap.generated.Reservation;
+
 
 /**
  * SOAP endpoint for library administration operations
@@ -57,7 +60,7 @@ public class BibliothequeEndpoint {
         Livre savedLivre = livreService.addLivre(livre);
         
         // Convert back to SOAP DTO
-        bibliotheque.ws.Livre livreResponse = new bibliotheque.ws.Livre();
+        com.library.soap.generated.Livre livreResponse = new com.library.soap.generated.Livre();
         BeanUtils.copyProperties(savedLivre, livreResponse);
         
         response.setLivre(livreResponse);
@@ -87,7 +90,7 @@ public class BibliothequeEndpoint {
         Livre updatedLivre = livreService.updateLivre(request.getLivreId(), livre);
         
         // Convert back to SOAP DTO
-        bibliotheque.ws.Livre livreResponse = new bibliotheque.ws.Livre();
+        com.library.soap.generated.Livre livreResponse = new com.library.soap.generated.Livre();
         BeanUtils.copyProperties(updatedLivre, livreResponse);
         
         response.setLivre(livreResponse);
@@ -124,7 +127,7 @@ public class BibliothequeEndpoint {
         Reservation reservation = reservationService.borrowBook(request.getUserId(), request.getLivreId());
         
         // Convert to SOAP DTO
-        bibliotheque.ws.Reservation reservationResponse = new bibliotheque.ws.Reservation();
+        com.library.soap.generated.Reservation reservationResponse = new com.library.soap.generated.Reservation();
         reservationResponse.setId(reservation.getId());
         reservationResponse.setStatus(reservation.getStatus().toString());
         
@@ -146,7 +149,7 @@ public class BibliothequeEndpoint {
         Reservation reservation = reservationService.returnBook(request.getUserId(), request.getLivreId());
         
         // Convert to SOAP DTO
-        bibliotheque.ws.Reservation reservationResponse = new bibliotheque.ws.Reservation();
+        com.library.soap.generated.Reservation reservationResponse = new com.library.soap.generated.Reservation();
         reservationResponse.setId(reservation.getId());
         reservationResponse.setStatus(reservation.getStatus().toString());
         

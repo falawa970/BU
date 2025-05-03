@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb">
+  <!--
+
+Ce fichier a été généré par Eclipse Implementation of JAXB, v3.0.0 
+Voir https://eclipse-ee4j.github.io/jaxb-ri 
+Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+Généré le : 2025.05.03 à 12:59:49 PM UTC 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://bibliotheque.ws">
+    <schemaBindings map="false">
+      <package name="com.library.soap.generated"/>
+    </schemaBindings>
+    <bindings scd="tns:ajouterLivreRequest">
+      <class ref="com.library.soap.generated.AjouterLivreRequest"/>
+    </bindings>
+    <bindings scd="~tns:livre">
+      <class ref="com.library.soap.generated.Livre"/>
+    </bindings>
+    <bindings scd="tns:ajouterLivreResponse">
+      <class ref="com.library.soap.generated.AjouterLivreResponse"/>
+    </bindings>
+    <bindings scd="tns:modifierLivreRequest">
+      <class ref="com.library.soap.generated.ModifierLivreRequest"/>
+    </bindings>
+    <bindings scd="tns:modifierLivreResponse">
+      <class ref="com.library.soap.generated.ModifierLivreResponse"/>
+    </bindings>
+    <bindings scd="tns:supprimerLivreRequest">
+      <class ref="com.library.soap.generated.SupprimerLivreRequest"/>
+    </bindings>
+    <bindings scd="tns:supprimerLivreResponse">
+      <class ref="com.library.soap.generated.SupprimerLivreResponse"/>
+    </bindings>
+    <bindings scd="tns:preterLivreRequest">
+      <class ref="com.library.soap.generated.PreterLivreRequest"/>
+    </bindings>
+    <bindings scd="tns:preterLivreResponse">
+      <class ref="com.library.soap.generated.PreterLivreResponse"/>
+    </bindings>
+    <bindings scd="~tns:reservation">
+      <class ref="com.library.soap.generated.Reservation"/>
+    </bindings>
+    <bindings scd="tns:retournerLivreRequest">
+      <class ref="com.library.soap.generated.RetournerLivreRequest"/>
+    </bindings>
+    <bindings scd="tns:retournerLivreResponse">
+      <class ref="com.library.soap.generated.RetournerLivreResponse"/>
+    </bindings>
+    <bindings scd="~tns:user">
+      <class ref="com.library.soap.generated.User"/>
+    </bindings>
+  </bindings>
+</bindings>
+

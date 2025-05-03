@@ -133,4 +133,8 @@ public class LivreService {
         
         return livreRepository.save(livre);
     }
+
+    public Livre save(Livre livre) {
+        return null;
+    }
 }

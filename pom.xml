@@ -62,7 +62,9 @@
     <dependency>
       <groupId>wsdl4j</groupId>
       <artifactId>wsdl4j</artifactId>
+      <version>1.6.3</version>
     </dependency>
+
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
       <artifactId>jakarta.xml.bind-api</artifactId>
@@ -114,6 +116,28 @@
           <mavenVersion>3.9.6</mavenVersion>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxb2-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <phase>generate-sources</phase>
+            <configuration>
+              <sources>
+                <source>${project.basedir}/src/main/resources/bibliotheque.xsd</source>
+              </sources>
+              <packageName>com.library.soap.generated</packageName>
+              <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 </project>

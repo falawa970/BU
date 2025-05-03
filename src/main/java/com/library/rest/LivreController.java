@@ -4,10 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.library.model.Livre;
 import com.library.service.LivreService;
@@ -57,5 +54,9 @@ public class LivreController {
     public ResponseEntity<List<Livre>> getAvailableLivres() {
         List<Livre> livres = livreService.getAvailableLivres();
         return ResponseEntity.ok(livres);
+    }
+    @PostMapping
+    public Livre createLivre(@RequestBody Livre livre){
+        return  livreService.save(livre);
     }
 }

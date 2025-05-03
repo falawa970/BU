@@ -34,6 +34,7 @@ public class Livre {
     
     @NotBlank(message = "L'auteur est obligatoire")
     @Column(nullable = false)
+    @NotNull
     private String auteur;
     
     @Column
